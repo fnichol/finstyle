@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary        = "Version pinning RuboCop and configuration for" \
                         "consistentcy in CI"
   spec.description    = spec.description
-  spec.homepage       = "https://github.com/fnichol/finstyle"
+  spec.homepage       = "http://fnichol.github.io/finstyle"
   spec.license        = "MIT"
 
   spec.files          = `git ls-files -z`.split("\x0")
