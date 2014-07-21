@@ -93,4 +93,4 @@ MIT (see [LICENSE.txt][license])
 [rubocop]:  https://github.com/bbatsov/rubocop
 [patch]:    https://github.com/fnichol/finstyle/blob/master/lib/finstyle.rb
 [rakefile]: https://github.com/fnichol/finstyle/blob/master/Rakefile
-[upstream]: https://github.com/fnichol/finstyle/blob/master/config/deault.yml
+[upstream]: https://github.com/fnichol/finstyle/blob/master/config/default.yml
