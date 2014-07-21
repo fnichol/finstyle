@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Finstyle by fnichol</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Finstyle</h1>
+        <h2>Version Pinning RuboCop and Configuration for CI</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/fnichol/finstyle/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/fnichol/finstyle/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/fnichol/finstyle" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>This is an executable version of a Ruby style guide which uses <a href="https://github.com/bbatsov/rubocop">RuboCop</a> as its implementation. It focuses on being Ruby code that is non-surprising, readable, and allows for some flexibility with respect to naming expression.</p>
+
+<h2>
+<a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How It Works</h2>
+
+<p>This library has a direct dependency on one specific version of RuboCop (at a time), and <a href="https://github.com/fnichol/finstyle/blob/master/lib/finstyle.rb">patches it</a> to load the <a href="https://github.com/fnichol/finstyle/blob/master/config/deault.yml">upstream configuration</a> and <a href="https://github.com/fnichol/finstyle/blob/master/config/finstyle.yml">custom set</a> of rule updates. When a new RuboCop release comes out, this library can rev its pinned version dependency and <a href="https://github.com/fnichol/finstyle/blob/master/Rakefile">re-vendor</a> the upstream configuration to determine if any breaking style or lint rules were added/dropped/reversed/etc.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">gem</span> <span class="s1">'finstyle'</span>
+</pre></div>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install finstyle
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Use this tool just as you would RuboCop, but invoke the <code>finstyle</code> binary
+instead which patches RuboCop to load rules from the Finstyle gem. For example:</p>
+
+<div class="highlight highlight-sh"><pre>finstyle -D --format offenses
+</pre></div>
+
+<p>In a Rakefile, the setup is exactly the same, except you need to require the
+Finstyle library first:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"finstyle"</span>
+<span class="nb">require</span> <span class="s2">"rubocop/rake_task"</span>
+<span class="no">RuboCop</span><span class="o">::</span><span class="no">RakeTask</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">task</span><span class="o">|</span>
+  <span class="n">task</span><span class="o">.</span><span class="n">options</span> <span class="o">&lt;&lt;</span> <span class="s2">"--display-cop-names"</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>As with vanilla RuboCop, any custom settings can still be placed in a <code>.rubocop.yml</code> file in the root of your project.</p>
+
+<h2>
+<a name="frequently-ask-questions" class="anchor" href="#frequently-ask-questions"><span class="octicon octicon-link"></span></a>Frequently Ask Questions</h2>
+
+<ul>
+<li>
+<strong>Why?</strong>
+Tools and libraries such as RuboCop couple an implementation with policy into one versioned artifact. As such it can be hard to determine if a version change was due to a new tool feature or policy changes. Additonally, most users of such dependencies declare very loose version constraints on these tools (blindly depending on latest release or even assuming a SemVer friendly constraint such as <code>"~ 1.0"</code>). Then when a new version is released any continuous integration (CI) jobs may start to fail without <em>any</em> change in code. This library attempts to bake the version of the upstream dependency and its custom policy in one place. By the way, if you decide to use this library, it is recommended to version pin the version in your gemspec or Gemfile.</li>
+<li>
+<strong>Aren't the default RuboCop rules sufficient?</strong>
+The custom rules for Finstyle were derived by using a corpus of working production code and so the aim here is to be pragmatic and realistic.</li>
+<li>
+<strong>I disagree with {{insert rule here}}, can I change it?</strong>
+You are welcome to submit issues or pull requests to this project but keep in mind that as any style guides go, these work for the author and related projects. They weren't made arbitrarily :) If you like the implemementation (hack), feel free to fork/copy the idea and vendor your own custom rules.</li>
+</ul><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ul>
+<li>Source hosted at <a href="https://github.com/fnichol/finstyle">GitHub</a>
+</li>
+<li>Report issues/questions/feature requests on <a href="https://github.com/fnichol/finstyle/issues">GitHub Issues</a>
+</li>
+</ul><p>Pull requests are very welcome! Make sure your patches are well tested.
+Ideally create a topic branch for every separate change you make. For
+example:</p>
+
+<ol>
+<li>Fork it ( <a href="https://github.com/%5Bmy-github-username%5D/finstyle/fork">https://github.com/[my-github-username]/finstyle/fork</a> )</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create a new Pull Request</li>
+</ol><h2>
+<a name="authors" class="anchor" href="#authors"><span class="octicon octicon-link"></span></a>Authors</h2>
+
+<p>Created and maintained by <a href="https://github.com/fnichol">Fletcher Nichol</a> (<a href="mailto:fnichol@nichol.ca">fnichol@nichol.ca</a>)</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT (see <a href="https://github.com/fnichol/finstyle/blob/master/LICENSE.txt">LICENSE.txt</a>)</p>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-29670723-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
