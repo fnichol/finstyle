@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version        = Finstyle::VERSION
   spec.authors        = ["Fletcher Nichol"]
   spec.email          = ["fnichol@nichol.ca"]
-  spec.summary        = "Version pinning RuboCop and configuration for" \
+  spec.summary        = "Version pinning RuboCop and configuration for " \
                         "consistentcy in CI"
   spec.description    = spec.description
   spec.homepage       = "http://fnichol.github.io/finstyle"
