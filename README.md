@@ -1,5 +1,10 @@
 # Finstyle: Version Pinning RuboCop and Configuration for CI
 
+[![Build Status](https://travis-ci.org/fnichol/finstyle.svg?branch=master)](https://travis-ci.org/fnichol/finstyle)
+[![Code Climate](https://codeclimate.com/github/fnichol/finstyle.png)](https://codeclimate.com/github/fnichol/finstyle)
+[![Dependency Status](https://gemnasium.com/fnichol/finstyle.svg)](https://gemnasium.com/fnichol/finstyle)
+
+
 This is an executable version of a Ruby style guide which uses [RuboCop][rubocop] as its implementation. It focuses on being Ruby code that is non-surprising, readable, and allows for some flexibility with respect to naming expression.
 
 ## How It Works
