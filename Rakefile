@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 require "bundler/gem_tasks"
 
 upstream = Gem::Specification.find_by_name("rubocop")
