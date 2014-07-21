@@ -1,0 +1,131 @@
+#
+## Finstyle RuboCop configuration
+#
+
+#
+### Lint Cops
+#
+
+# Nothing but false positives in the Kitchen codebase--which has test coverage
+Lint/AssignmentInCondition:
+  Enabled: false
+
+# Align if/end with the variable, not align with the if keyword
+Lint/EndAlignment:
+  AlignWith: variable
+
+#
+### Style Cops
+#
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+# I very much agree with the Jim Weirich school of thought on usage of do/end
+# vs. {...}:
+# * http://devblog.avdi.org/2011/07/26/the-procedurefunction-block-convention-in-ruby/
+# * http://talklikeaduck.denhaven2.com/2007/10/02/ruby-blocks-do-or-brace
+# * http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc
+Style/Blocks:
+  Enabled: false
+
+# ABC complexity is a far better code smell signal than raw class length.
+Style/ClassLength:
+  Max: 300
+
+# Words help us convey meaning and Ruby aliased methods help with this.
+Style/CollectionMethods:
+  PreferredMethods:
+    inject:
+
+# Other tooling can detect and handle this, too many false positives.
+Style/Documentation:
+  Enabled: false
+
+# This isn't javascript, gotta be super careful with the Ruby parser.
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/EachWithObject:
+  Enabled: false
+
+# Whitespace between modules/classes/methods can be helpful to read and
+# don't hurt anybody.
+Style/EmptyLinesAroundBody:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Style/EmptyLiteral:
+  Enabled: false
+
+# Claimed violations of this by Rubocop are, in general, complete nonsense and
+# worse can dramtically reduce the safe readability of code (it would lead you
+# to add a lot more `return if ...` blocks in the *middle* of method bodies)
+Style/GuardClause:
+  Enabled: false
+
+# Appending a statement modifier can drastically reduce readbility and push
+# the line length to extremes.
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/LineLength:
+  Max: 100
+
+# ABC complexity is a far better code smell signal than raw method length.
+Style/MethodLength:
+  Max: 20
+
+# True functional-style chaining is fine by me
+Style/MultilineBlockChain:
+  Enabled: false
+
+# Using unless in many circumstances can place an overly large cognitive load
+# on someone reading the code. Unless can be great in postfix/modifier position
+# but no so much at the head of a conditional block.
+Style/NegatedIf:
+  Enabled: false
+
+# When this is useful, it's useful, every other time it's entirely surprising
+# to new Rubyists
+Style/NumericLiterals:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%':  '{}'
+    '%q': '{}'
+    '%Q': '{}'
+    '%w': '[]'
+    '%W': '[]'
+    '%x': '{}'
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/Semicolon:
+  Enabled: false
+
+# I just... what?
+Style/SignalException:
+  Enabled: false
+
+# Let's not argue over this...
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Nothing but a single-quoting strings rule in disguise
+Style/UnneededCapitalW:
+  Enabled: false
+
+# I prefer this to be a much more explicit form of communication than simple
+# backticks
+Style/UnneededPercentX:
+  Enabled: false
+
+# Always enforcing a postfix/modifier is silly if the code block spans
+# multiple lines
+Style/WhileUntilModifier:
+  Enabled: false
