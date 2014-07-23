@@ -1,3 +1,17 @@
+## 1.1.0 / 2014-07-22
+
+### New features
+
+* Introduce `Finstyle.config` to determine the path to YAML config file. ([@fnichol][])
+* Add `finstyle-config` which outputs the full path to config YAML. ([@fnichol][])
+
+### Improvements
+
+* Add more usage documentation for Guard, RuboCop command, etc. ([@fnichol][])
+* Remove redundant inheritance of enabled/disabled from default.yml. ([@fnichol][])
+* Add guard-rubocop support to project. ([@fnichol][])
+
+
 ## 1.0.1 / 2014-07-21
 
 ### Code changes
