@@ -30,12 +30,30 @@ Or install it yourself as:
 
 ## Usage
 
+### Vanilla RuboCop
+
+Run RuboCop as normal, simply add a `-r finstyle` option when running:
+
+```sh
+rubocop -r finstyle -D --format offenses
+```
+
+Alternatively, you can use the `finstyle-config` command to determine the path on disk to Finstyle's YAML config file:
+
+```sh
+rubocop --config $(finstyle-config) -D --format offenses
+```
+
+### finstyle Command
+
 Use this tool just as you would RuboCop, but invoke the `finstyle` binary
 instead which patches RuboCop to load rules from the Finstyle gem. For example:
 
 ```sh
 finstyle -D --format offenses
 ```
+
+### Rake
 
 In a Rakefile, the setup is exactly the same, except you need to require the
 Finstyle library first:
@@ -47,6 +65,30 @@ RuboCop::RakeTask.new do |task|
   task.options << "--display-cop-names"
 end
 ```
+
+### guard-rubocop
+
+You can use one of two methods. The simplest is to add the `-r finstyle` option to the `:cli` option in your Guardfile:
+
+```ruby
+guard :rubocop, cli: "-r finstyle" do
+  watch(%r{.+\.rb$})
+  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
+end
+```
+
+Alternatively you could pass the path to Finstyle's configuration by using the `Finstyle.config` method:
+
+```ruby
+require "finstyle"
+
+guard :rubocop, cli: "--config #{Finstyle.config}" do
+  watch(%r{.+\.rb$})
+  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
+end
+```
+
+### .rubycop.yml
 
 As with vanilla RuboCop, any custom settings can still be placed in a `.rubocop.yml` file in the root of your project.
 
