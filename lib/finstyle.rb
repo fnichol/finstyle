@@ -20,3 +20,13 @@ module RuboCop
     )
   end
 end
+
+# Finstyle patches the RuboCop tool to set a new default configuration that
+# is vendored in the Finstyle codebase.
+module Finstyle
+  # @return [String] the absolute path to the main RuboCop configuration YAML
+  #   file
+  def self.config
+    RuboCop::ConfigLoader::DEFAULT_FILE
+  end
+end
