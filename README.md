@@ -88,7 +88,7 @@ guard :rubocop, cli: "--config #{Finstyle.config}" do
 end
 ```
 
-### .rubycop.yml
+### .rubocop.yml
 
 As with vanilla RuboCop, any custom settings can still be placed in a `.rubocop.yml` file in the root of your project.
 
