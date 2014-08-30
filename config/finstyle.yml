@@ -15,6 +15,21 @@ Lint/EndAlignment:
   AlignWith: variable
 
 #
+### Metrics Cops
+#
+
+# ABC complexity is a far better code smell signal than raw class length.
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/LineLength:
+  Max: 100
+
+# ABC complexity is a far better code smell signal than raw method length.
+Metrics/MethodLength:
+  Max: 20
+
+#
 ### Style Cops
 #
 
@@ -28,10 +43,6 @@ Style/AlignParameters:
 # * http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc
 Style/Blocks:
   Enabled: false
-
-# ABC complexity is a far better code smell signal than raw class length.
-Style/ClassLength:
-  Max: 300
 
 # Words help us convey meaning and Ruby aliased methods help with this.
 Style/CollectionMethods:
@@ -70,13 +81,6 @@ Style/GuardClause:
 # the line length to extremes.
 Style/IfUnlessModifier:
   Enabled: false
-
-Style/LineLength:
-  Max: 100
-
-# ABC complexity is a far better code smell signal than raw method length.
-Style/MethodLength:
-  Max: 20
 
 # True functional-style chaining is fine by me
 Style/MultilineBlockChain:
