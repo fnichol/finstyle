@@ -18,6 +18,12 @@ Lint/EndAlignment:
 ### Metrics Cops
 #
 
+# Using a higher watermark as we are not dealing with single line Ruby on Rails
+# application logic but rather library codebases. Also, the cane gem is often
+# used to also enforce ABC complexity.
+Metrics/AbcSize:
+  Max: 30
+
 # ABC complexity is a far better code smell signal than raw class length.
 Metrics/ClassLength:
   Max: 300
@@ -60,10 +66,22 @@ Style/DotPosition:
 Style/EachWithObject:
   Enabled: false
 
+# Temporarily disabled, pending release of Rubocop later than 0.27.0 which
+# includes https://github.com/bbatsov/rubocop/issues/1416 fix
+# @TODO Remove when Rubocop > 0.27.0 is released.
+Style/ElseAlignment:
+  Enabled: false
+
 # Whitespace between modules/classes/methods can be helpful to read and
 # don't hurt anybody.
-Style/EmptyLinesAroundBody:
+Style/EmptyLinesAroundClassBody:
   Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+#Style/EmptyLinesAroundBody:
+#  Enabled: false
 
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
@@ -85,6 +103,9 @@ Style/IfUnlessModifier:
 # True functional-style chaining is fine by me
 Style/MultilineBlockChain:
   Enabled: false
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
 
 # Using unless in many circumstances can place an overly large cognitive load
 # on someone reading the code. Unless can be great in postfix/modifier position
@@ -119,6 +140,12 @@ Style/SignalException:
 # Let's not argue over this...
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+# Temporarily disabled, pending releas of Rubocop later than 0.27.0, which
+# includes https://github.com/bbatsov/rubocop/issues/1415 fix
+# @TODO Remve when Rubocop > 0.27.0 is released.
+Style/StringLiteralsInInterpolation:
+  Enabled: false
 
 # Nothing but a single-quoting strings rule in disguise
 Style/UnneededCapitalW:
