@@ -1,3 +1,11 @@
+## 1.4.0 / 2014-12-15
+
+### Breaking changes
+
+* Upgrade to RuboCop 0.28.0 support. ([@fnichol][])
+* Removed temporary fixes due to issues in RuboCop 0.27.0 release. ([@fnichol][])
+
+
 ## 1.3.0 / 2014-11-06
 
 ### Breaking changes
