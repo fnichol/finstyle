@@ -82,6 +82,9 @@ Style/EmptyElse:
 
 # Whitespace between modules/classes/methods can be helpful to read and
 # don't hurt anybody.
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
 Style/EmptyLinesAroundClassBody:
   Enabled: false
 
