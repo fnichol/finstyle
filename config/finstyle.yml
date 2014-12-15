@@ -50,6 +50,9 @@ Style/AlignParameters:
 Style/Blocks:
   Enabled: false
 
+BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+
 # Words help us convey meaning and Ruby aliased methods help with this.
 Style/CollectionMethods:
   PreferredMethods:
