@@ -69,12 +69,6 @@ Style/DotPosition:
 Style/EachWithObject:
   Enabled: false
 
-# Temporarily disabled, pending release of Rubocop later than 0.27.0 which
-# includes https://github.com/bbatsov/rubocop/issues/1416 fix
-# @TODO Remove when Rubocop > 0.27.0 is released.
-Style/ElseAlignment:
-  Enabled: false
-
 # In cases where this has come up, else blocks typically contain an explicit
 # nil value which can reduce certain future return clause bugs
 Style/EmptyElse:
@@ -152,11 +146,8 @@ Style/SignalException:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-# Temporarily disabled, pending releas of Rubocop later than 0.27.0, which
-# includes https://github.com/bbatsov/rubocop/issues/1415 fix
-# @TODO Remve when Rubocop > 0.27.0 is released.
 Style/StringLiteralsInInterpolation:
-  Enabled: false
+  EnforcedStyle: double_quotes
 
 # Nothing but a single-quoting strings rule in disguise
 Style/UnneededCapitalW:
