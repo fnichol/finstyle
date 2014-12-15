@@ -87,7 +87,7 @@ Style/Blocks:
   Enabled: true
 
 Style/BracesAroundHashParameters:
-  Description: 'Enforce braces style inside hash parameters.'
+  Description: 'Enforce braces style around hash parameters.'
   Enabled: true
 
 Style/CaseEquality:
@@ -181,6 +181,10 @@ Style/ElseAlignment:
   Description: 'Align elses and elsifs correctly.'
   Enabled: true
 
+Style/EmptyElse:
+  Description: 'Avoid empty else-clauses.'
+  Enabled: true
+
 Style/EmptyLineBetweenDefs:
   Description: 'Use empty lines between defs.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#empty-lines-between-methods'
@@ -192,6 +196,10 @@ Style/EmptyLines:
 
 Style/EmptyLinesAroundAccessModifier:
   Description: "Keep blank lines around access modifiers."
+  Enabled: true
+
+Style/EmptyLinesAroundBlockBody:
+  Description: "Keeps track of empty lines around block bodies."
   Enabled: true
 
 Style/EmptyLinesAroundClassBody:
@@ -271,7 +279,7 @@ Style/IfUnlessModifier:
   Enabled: true
 
 Style/IfWithSemicolon:
-  Description: 'Never use if x; .... Use the ternary operator instead.'
+  Description: 'Do not use if x; .... Use the ternary operator instead.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-semicolon-ifs'
   Enabled: true
 
@@ -352,7 +360,7 @@ Style/MultilineBlockLayout:
   Enabled: true
 
 Style/MultilineIfThen:
-  Description: 'Never use then for multi-line if/unless.'
+  Description: 'Do not use then for multi-line if/unless.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-then'
   Enabled: true
 
@@ -544,7 +552,7 @@ Style/SpaceAfterControlKeyword:
 
 Style/SpaceAfterMethodName:
   Description: >-
-                 Never put a space between a method name and the opening
+                 Do not put a space between a method name and the opening
                  parenthesis in a method definition.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#parens-no-spaces'
   Enabled: true
@@ -670,7 +678,7 @@ Style/TrivialAccessors:
 
 Style/UnlessElse:
   Description: >-
-                 Never use unless with else. Rewrite these with the positive
+                 Do not use unless with else. Rewrite these with the positive
                  case first.
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-else-with-unless'
   Enabled: true
@@ -742,7 +750,7 @@ Metrics/ClassLength:
 
 Metrics/CyclomaticComplexity:
   Description: >-
-                 A complexity metric that is strongy correlated to the number
+                 A complexity metric that is strongly correlated to the number
                  of test cases needed to validate a method.
   Enabled: true
 
@@ -832,7 +840,7 @@ Lint/EndInMethod:
   Enabled: true
 
 Lint/EnsureReturn:
-  Description: 'Never use return in an ensure block.'
+  Description: 'Do not use return in an ensure block.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-return-ensure'
   Enabled: true
 

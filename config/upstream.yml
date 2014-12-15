@@ -139,8 +139,16 @@ Style/BarePercentLiterals:
 Style/BracesAroundHashParameters:
   EnforcedStyle: no_braces
   SupportedStyles:
+    # The `braces` style enforces braces around all method parameters that are
+    # hashes.
     - braces
+    # The `no_braces` style checks that the last parameter doesn't have braces
+    # around it.
     - no_braces
+    # The `context_dependent` style checks that the last parameter doesn't have
+    # braces around it, but requires braces if the second to last parameter is
+    # also a hash literal.
+    - context_dependent
 
 # Indentation of `when`.
 Style/CaseIndentation:
@@ -213,6 +221,12 @@ Style/EmptyLineBetweenDefs:
   # If true, this parameter means that single line method definitions don't
   # need an empty line between them.
   AllowAdjacentOneLineDefs: false
+
+Style/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+    - empty_lines
+    - no_empty_lines
 
 Style/EmptyLinesAroundClassBody:
   EnforcedStyle: no_empty_lines
@@ -605,7 +619,7 @@ Rails/Output:
     - config/**/*.rb
     - db/**/*.rb
     - lib/**/*.rb
-    
+
 Rails/ReadWriteAttribute:
   Include:
     - app/models/**/*.rb
