@@ -75,6 +75,11 @@ Style/EachWithObject:
 Style/ElseAlignment:
   Enabled: false
 
+# In cases where this has come up, else blocks typically contain an explicit
+# nil value which can reduce certain future return clause bugs
+Style/EmptyElse:
+  Enabled: false
+
 # Whitespace between modules/classes/methods can be helpful to read and
 # don't hurt anybody.
 Style/EmptyLinesAroundClassBody:
