@@ -29,6 +29,18 @@ AllCops:
   # By default, the rails cops are not run. Override in project or home
   # directory .rubocop.yml files, or by giving the -R/--rails option.
   RunRailsCops: false
+  # Cop names are not displayed in offense messages by default. Change behavior
+  # by overriding DisplayCopNames, or by giving the -D/--display-cop-names
+  # option.
+  DisplayCopNames: false
+  # Style guide URLs are not displayed in offense messages by default. Change
+  # behavior by overriding DisplayStyleGuide, or by giving the
+  # -S/--display-style-guide option.
+  DisplayStyleGuide: false
+  # Additional cops that do not reference a style guide rule may be enabled by
+  # default. Change behavior by overriding StyleGuideCopsOnly, or by giving
+  # the --only-guide-cops option.
+  StyleGuideCopsOnly: false
 
 # Indent private/protected/public as deep as method definitions
 Style/AccessModifierIndentation:
@@ -136,6 +148,72 @@ Style/BarePercentLiterals:
     - percent_q
     - bare_percent
 
+Style/BlockDelimiters:
+  EnforcedStyle: line_count_based
+  SupportedStyles:
+    # The `line_count_based` style enforces braces around single line blocks and
+    # do..end around multi-line blocks.
+    - line_count_based
+    # The `semantic` style enforces braces around functional blocks, where the
+    # primary purpose of the block is to return a value and do..end for
+    # procedural blocks, where the primary purpose of the block is its
+    # side-effects.
+    #
+    # This looks at the usage of a block's method to determine its type (e.g. is
+    # the result of a `map` assigned to a variable or passed to another
+    # method) but exceptions are permitted in the `ProceduralMethods`,
+    # `FunctionalMethods` and `IgnoredMethods` sections below.
+    - semantic
+  ProceduralMethods:
+    # Methods that are known to be procedural in nature but look functional from
+    # their usage, e.g.
+    #
+    #   time = Benchmark.realtime do
+    #     foo.bar
+    #   end
+    #
+    # Here, the return value of the block is discarded but the return value of
+    # `Benchmark.realtime` is used.
+    - benchmark
+    - bm
+    - bmbm
+    - create
+    - each_with_object
+    - measure
+    - new
+    - realtime
+    - tap
+    - with_object
+  FunctionalMethods:
+    # Methods that are known to be functional in nature but look procedural from
+    # their usage, e.g.
+    #
+    #   let(:foo) { Foo.new }
+    #
+    # Here, the return value of `Foo.new` is used to define a `foo` helper but
+    # doesn't appear to be used from the return value of `let`.
+    - let
+    - let!
+    - subject
+    - watch
+  IgnoredMethods:
+    # Methods that can be either procedural or functional and cannot be
+    # categorised from their usage alone, e.g.
+    #
+    #   foo = lambda do |x|
+    #     puts "Hello, #{x}"
+    #   end
+    #
+    #   foo = lambda do |x|
+    #     x * 100
+    #   end
+    #
+    # Here, it is impossible to tell from the return value of `lambda` whether
+    # the inner block's return value is significant.
+    - lambda
+    - proc
+    - it
+
 Style/BracesAroundHashParameters:
   EnforcedStyle: no_braces
   SupportedStyles:
@@ -200,6 +278,20 @@ Style/CollectionMethods:
     detect: 'find'
     find_all: 'select'
 
+# Use ` or %x around command literals.
+Style/CommandLiteral:
+  EnforcedStyle: backticks
+  # backticks: Always use backticks.
+  # percent_x: Always use %x.
+  # mixed: Use backticks on single-line commands, and %x on multi-line commands.
+  SupportedStyles:
+    - backticks
+    - percent_x
+    - mixed
+  # If false, the cop will always recommend using %x if one or more backticks
+  # are found in the command string.
+  AllowInnerBackticks: false
+
 # Checks formatting of special comments
 Style/CommentAnnotation:
   Keywords:
@@ -209,12 +301,45 @@ Style/CommentAnnotation:
     - HACK
     - REVIEW
 
+# Checks that you have put a copyright in a comment before any code.
+#
+# You can override the default Notice in your .rubocop.yml file.
+#
+# In order to use autocorrect, you must supply a value for the
+# AutocorrectNotice key that matches the regexp Notice.  A blank
+# AutocorrectNotice will cause an error during autocorrect.
+#
+# Autocorrect will add a copyright notice in a comment at the top
+# of the file immediately after any shebang or encoding comments.
+#
+# Example rubocop.yml:
+#
+# Style/Copyright:
+#   Enabled: true
+#   Notice: 'Copyright (\(c\) )?2015 Yahoo! Inc'
+#   AutocorrectNotice: '# Copyright (c) 2015 Yahoo! Inc.'
+#
+Style/Copyright:
+  Notice: '^Copyright (\(c\) )?2[0-9]{3} .+'
+  AutocorrectNotice: ''
+
 # Multi-line method chaining should be done with leading dots.
 Style/DotPosition:
   EnforcedStyle: leading
   SupportedStyles:
     - leading
     - trailing
+
+# Warn on empty else statements
+# empty - warn only on empty else
+# nil - warn on else with nil in it
+# both - warn on empty else and else with nil in it
+Style/EmptyElse:
+  EnforcedStyle: both
+  SupportedStyles:
+    - empty
+    - nil
+    - both
 
 # Use empty lines between defs.
 Style/EmptyLineBetweenDefs:
@@ -241,16 +366,34 @@ Style/EmptyLinesAroundModuleBody:
     - no_empty_lines
 
 # Checks whether the source file has a utf-8 encoding comment or not
+# AutoCorrectEncodingComment must match the regex
+# /#.*coding\s?[:=]\s?(?:UTF|utf)-8/
 Style/Encoding:
   EnforcedStyle: always
   SupportedStyles:
     - when_needed
     - always
+  AutoCorrectEncodingComment: '# encoding: utf-8'
 
 Style/FileName:
   # File names listed in AllCops:Include are excluded by default. Add extra
   # excludes here.
   Exclude: []
+
+Style/FirstParameterIndentation:
+  EnforcedStyle: special_for_inner_method_call_in_parentheses
+  SupportedStyles:
+    # The first parameter should always be indented one step more than the
+    # preceding line.
+    - consistent
+    # The first parameter should normally be indented one step more than the
+    # preceding line, but if it's a parameter for a method call that is itself
+    # a parameter in a method call, then the inner parameter should be indented
+    # relative to the inner method.
+    - special_for_inner_method_call
+    # Same as special_for_inner_method_call except that the special rule only
+    # applies if the outer method call encloses its arguments in parentheses.
+    - special_for_inner_method_call_in_parentheses
 
 # Checks use of for or each in multiline loops.
 Style/For:
@@ -280,10 +423,25 @@ Style/HashSyntax:
   EnforcedStyle: ruby19
   SupportedStyles:
     - ruby19
+    - ruby19_no_mixed_keys
     - hash_rockets
+# Force hashes that have a symbol value to use hash rockets
+  UseHashRocketsWithSymbolValues: false
 
 Style/IfUnlessModifier:
   MaxLineLength: 80
+
+Style/IndentationConsistency:
+  # The difference between `rails` and `normal` is that the `rails` style
+  # prescribes that in classes and modules the `protected` and `private`
+  # modifier keywords shall be indented the same as public methods and that
+  # protected and private members shall be indented one step more than the
+  # modifiers. Other than that, both styles mean that entities on the same
+  # logical depth shall have the same indentation.
+  EnforcedStyle: normal
+  SupportedStyles:
+    - normal
+    - rails
 
 Style/IndentationWidth:
   # Number of spaces for each indentation level.
@@ -395,10 +553,19 @@ Style/RedundantReturn:
   # When true allows code like `return x, y`.
   AllowMultipleReturnValues: false
 
+# Use / or %r around regular expressions.
 Style/RegexpLiteral:
-  # The maximum number of (escaped) slashes that a slash-delimited regexp is
-  # allowed to have. If there are more slashes, a %r regexp shall be used.
-  MaxSlashes: 1
+  EnforcedStyle: slashes
+  # slashes: Always use slashes.
+  # percent_r: Always use %r.
+  # mixed: Use slashes on single-line regexes, and %r on multi-line regexes.
+  SupportedStyles:
+    - slashes
+    - percent_r
+    - mixed
+  # If false, the cop will always recommend using %r if one or more slashes
+  # are found in the regexp string.
+  AllowInnerSlashes: false
 
 Style/Semicolon:
   # Allow ; to separate several expressions on the same line.
@@ -435,11 +602,22 @@ Style/StringLiteralsInInterpolation:
     - single_quotes
     - double_quotes
 
+Style/SpaceAroundBlockParameters:
+  EnforcedStyleInsidePipes: no_space
+  SupportedStyles:
+    - space
+    - no_space
+
 Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: space
   SupportedStyles:
     - space
     - no_space
+
+Style/SpaceAroundOperators:
+  MultiSpaceAllowedForOperators:
+    - '='
+    - '=>'
 
 Style/SpaceBeforeBlockBraces:
   EnforcedStyle: space
@@ -477,17 +655,28 @@ Style/TrailingBlankLines:
     - final_blank_line
 
 Style/TrailingComma:
-  # If EnforcedStyleForMultiline is comma, the cop allows a comma after the
+  # If EnforcedStyleForMultiline is comma, the cop requires a comma after the
   # last item of a list, but only for lists where each item is on its own line.
+  # If EnforcedStyleForMultiline is consistent_comma, the cop requires a comma
+  # after the last item of a list, for all lists.
   EnforcedStyleForMultiline: no_comma
   SupportedStyles:
     - comma
+    - consistent_comma
     - no_comma
 
-# TrivialAccessors doesn't require exact name matches and doesn't allow
+# TrivialAccessors requires exact name matches and doesn't allow
 # predicated methods by default.
 Style/TrivialAccessors:
-  ExactNameMatch: false
+  # When set to false the cop will suggest the use of accessor methods
+  # in situations like:
+  #
+  # def name
+  #   @other_name
+  # end
+  #
+  # This way you can uncover "hidden" attributes in your code.
+  ExactNameMatch: true
   AllowPredicates: false
   # Allows trivial writers that don't end in an equal sign. e.g.
   #
@@ -498,6 +687,7 @@ Style/TrivialAccessors:
   #
   # Commonly used in DSLs
   AllowDSLWriters: false
+  IgnoreClassMethods: false
   Whitelist:
     - to_ary
     - to_a
@@ -551,6 +741,8 @@ Metrics/CyclomaticComplexity:
 
 Metrics/LineLength:
   Max: 80
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # contaning a URI to be longer than Max.
   AllowURI: true
   URISchemes:
     - http
@@ -605,7 +797,26 @@ Rails/ActionFilter:
   Include:
     - app/controllers/**/*.rb
 
+Rails/Date:
+  # The value `always` disallows usage of `Date.today`, `Date.current`,
+  # `Date#to_time` etc.
+  # The value `acceptable` allows usage of `Date.current`, `Date.yesterday`, etc
+  # (but not `Date.today`) which are overriden by ActiveSupport to handle current
+  # time zone.
+  EnforcedStyle: always
+  SupportedStyles:
+    - always
+    - acceptable
+
 Rails/DefaultScope:
+  Include:
+    - app/models/**/*.rb
+
+Rails/FindBy:
+  Include:
+    - app/models/**/*.rb
+
+Rails/FindEach:
   Include:
     - app/models/**/*.rb
 
@@ -627,6 +838,14 @@ Rails/ReadWriteAttribute:
 Rails/ScopeArgs:
   Include:
     - app/models/**/*.rb
+
+Rails/TimeZone:
+  # The value `always` means that `Time` should be used with `zone`.
+  # The value `acceptable` allows usage of `in_time_zone` instead of `zone`.
+  EnforcedStyle: always
+  SupportedStyles:
+    - always
+    - acceptable
 
 Rails/Validation:
   Include:
