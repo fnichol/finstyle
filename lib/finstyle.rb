@@ -1,6 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 require "finstyle/version"
+
+# ensure the desired target version of RuboCop is gem activated
+gem "rubocop", "= #{Finstyle::RUBOCOP_VERSION}"
 require "rubocop"
 
 # Honestly, this is generally **not** a good idea and takes advantage of
