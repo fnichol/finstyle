@@ -2,4 +2,6 @@
 
 module Finstyle
   VERSION = "1.4.1.dev"
+
+  RUBOCOP_VERSION = "0.28.0"
 end
