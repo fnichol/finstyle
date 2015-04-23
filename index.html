@@ -4,9 +4,9 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
     <title>Finstyle by fnichol</title>
   </head>
@@ -36,17 +36,16 @@
 <p>This is an executable version of a Ruby style guide which uses <a href="https://github.com/bbatsov/rubocop">RuboCop</a> as its implementation. It focuses on being Ruby code that is non-surprising, readable, and allows for some flexibility with respect to naming expression.</p>
 
 <h2>
-<a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How It Works</h2>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>How It Works</h2>
 
 <p>This library has a direct dependency on one specific version of RuboCop (at a time), and <a href="https://github.com/fnichol/finstyle/blob/master/lib/finstyle.rb">patches it</a> to load the <a href="https://github.com/fnichol/finstyle/blob/master/config/default.yml">upstream configuration</a> and <a href="https://github.com/fnichol/finstyle/blob/master/config/finstyle.yml">custom set</a> of rule updates. When a new RuboCop release comes out, this library can rev its pinned version dependency and <a href="https://github.com/fnichol/finstyle/blob/master/Rakefile">re-vendor</a> the upstream configuration to determine if any breaking style or lint rules were added/dropped/reversed/etc.</p>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Add this line to your application's Gemfile:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">gem</span> <span class="s1">'finstyle'</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s"><span class="pl-pds">'</span>finstyle<span class="pl-pds">'</span></span></pre></div>
 
 <p>And then execute:</p>
 
@@ -59,71 +58,65 @@
 </code></pre>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <h3>
-<a name="vanilla-rubocop" class="anchor" href="#vanilla-rubocop"><span class="octicon octicon-link"></span></a>Vanilla RuboCop</h3>
+<a id="vanilla-rubocop" class="anchor" href="#vanilla-rubocop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Vanilla RuboCop</h3>
 
 <p>Run RuboCop as normal, simply add a <code>-r finstyle</code> option when running:</p>
 
-<div class="highlight highlight-sh"><pre>rubocop -r finstyle -D --format offenses
-</pre></div>
+<div class="highlight highlight-sh"><pre>rubocop -r finstyle -D --format offenses</pre></div>
 
 <p>Alternatively, you can use the <code>finstyle-config</code> command to determine the path on disk to Finstyle's YAML config file:</p>
 
-<div class="highlight highlight-sh"><pre>rubocop --config <span class="k">$(</span>finstyle-config<span class="k">)</span> -D --format offenses
-</pre></div>
+<div class="highlight highlight-sh"><pre>rubocop --config <span class="pl-s"><span class="pl-pds">$(</span>finstyle-config<span class="pl-pds">)</span></span> -D --format offenses</pre></div>
 
 <h3>
-<a name="finstyle-command" class="anchor" href="#finstyle-command"><span class="octicon octicon-link"></span></a>finstyle Command</h3>
+<a id="finstyle-command" class="anchor" href="#finstyle-command" aria-hidden="true"><span class="octicon octicon-link"></span></a>finstyle Command</h3>
 
 <p>Use this tool just as you would RuboCop, but invoke the <code>finstyle</code> binary
 instead which patches RuboCop to load rules from the Finstyle gem. For example:</p>
 
-<div class="highlight highlight-sh"><pre>finstyle -D --format offenses
-</pre></div>
+<div class="highlight highlight-sh"><pre>finstyle -D --format offenses</pre></div>
 
 <h3>
-<a name="rake" class="anchor" href="#rake"><span class="octicon octicon-link"></span></a>Rake</h3>
+<a id="rake" class="anchor" href="#rake" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rake</h3>
 
 <p>In a Rakefile, the setup is exactly the same, except you need to require the
 Finstyle library first:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"finstyle"</span>
-<span class="nb">require</span> <span class="s2">"rubocop/rake_task"</span>
-<span class="no">RuboCop</span><span class="o">::</span><span class="no">RakeTask</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">task</span><span class="o">|</span>
-  <span class="n">task</span><span class="o">.</span><span class="n">options</span> <span class="o">&lt;&lt;</span> <span class="s2">"--display-cop-names"</span>
-<span class="k">end</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>finstyle<span class="pl-pds">"</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>rubocop/rake_task<span class="pl-pds">"</span></span>
+<span class="pl-c1">RuboCop</span>::<span class="pl-c1">RakeTask</span>.<span class="pl-k">new</span> <span class="pl-k">do </span>|<span class="pl-smi">task</span>|
+  task.options <span class="pl-k">&lt;&lt;</span> <span class="pl-s"><span class="pl-pds">"</span>--display-cop-names<span class="pl-pds">"</span></span>
+<span class="pl-k">end</span></pre></div>
 
 <h3>
-<a name="guard-rubocop" class="anchor" href="#guard-rubocop"><span class="octicon octicon-link"></span></a>guard-rubocop</h3>
+<a id="guard-rubocop" class="anchor" href="#guard-rubocop" aria-hidden="true"><span class="octicon octicon-link"></span></a>guard-rubocop</h3>
 
 <p>You can use one of two methods. The simplest is to add the <code>-r finstyle</code> option to the <code>:cli</code> option in your Guardfile:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">guard</span> <span class="ss">:rubocop</span><span class="p">,</span> <span class="ss">cli</span><span class="p">:</span> <span class="s2">"-r finstyle"</span> <span class="k">do</span>
-  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{.+\.rb$}</span><span class="p">)</span>
-  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{(?:.+/)?\.rubocop\.yml$}</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">m</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)</span> <span class="p">}</span>
-<span class="k">end</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre>guard <span class="pl-c1">:rubocop</span>, <span class="pl-c1">cli:</span> <span class="pl-s"><span class="pl-pds">"</span>-r finstyle<span class="pl-pds">"</span></span> <span class="pl-k">do</span>
+  watch(<span class="pl-sr"><span class="pl-pds">%r{</span>.+<span class="pl-cce">\.</span>rb$<span class="pl-pds">}</span></span>)
+  watch(<span class="pl-sr"><span class="pl-pds">%r{</span><span class="pl-sr">(?:.+/)</span>?<span class="pl-cce">\.</span>rubocop<span class="pl-cce">\.</span>yml$<span class="pl-pds">}</span></span>) { |<span class="pl-smi">m</span>| <span class="pl-c1">File</span>.dirname(m[<span class="pl-c1">0</span>]) }
+<span class="pl-k">end</span></pre></div>
 
 <p>Alternatively you could pass the path to Finstyle's configuration by using the <code>Finstyle.config</code> method:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s2">"finstyle"</span>
+<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>finstyle<span class="pl-pds">"</span></span>
 
-<span class="n">guard</span> <span class="ss">:rubocop</span><span class="p">,</span> <span class="ss">cli</span><span class="p">:</span> <span class="s2">"--config </span><span class="si">#{</span><span class="no">Finstyle</span><span class="o">.</span><span class="n">config</span><span class="si">}</span><span class="s2">"</span> <span class="k">do</span>
-  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{.+\.rb$}</span><span class="p">)</span>
-  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{(?:.+/)?\.rubocop\.yml$}</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">m</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)</span> <span class="p">}</span>
-<span class="k">end</span>
-</pre></div>
+guard <span class="pl-c1">:rubocop</span>, <span class="pl-c1">cli:</span> <span class="pl-s"><span class="pl-pds">"</span>--config <span class="pl-pse">#{</span><span class="pl-s1"><span class="pl-c1">Finstyle</span>.config</span><span class="pl-pse"><span class="pl-s1">}</span></span><span class="pl-pds">"</span></span> <span class="pl-k">do</span>
+  watch(<span class="pl-sr"><span class="pl-pds">%r{</span>.+<span class="pl-cce">\.</span>rb$<span class="pl-pds">}</span></span>)
+  watch(<span class="pl-sr"><span class="pl-pds">%r{</span><span class="pl-sr">(?:.+/)</span>?<span class="pl-cce">\.</span>rubocop<span class="pl-cce">\.</span>yml$<span class="pl-pds">}</span></span>) { |<span class="pl-smi">m</span>| <span class="pl-c1">File</span>.dirname(m[<span class="pl-c1">0</span>]) }
+<span class="pl-k">end</span></pre></div>
 
 <h3>
-<a name="rubycopyml" class="anchor" href="#rubycopyml"><span class="octicon octicon-link"></span></a>.rubycop.yml</h3>
+<a id="rubocopyml" class="anchor" href="#rubocopyml" aria-hidden="true"><span class="octicon octicon-link"></span></a>.rubocop.yml</h3>
 
 <p>As with vanilla RuboCop, any custom settings can still be placed in a <code>.rubocop.yml</code> file in the root of your project.</p>
 
 <h2>
-<a name="frequently-ask-questions" class="anchor" href="#frequently-ask-questions"><span class="octicon octicon-link"></span></a>Frequently Ask Questions</h2>
+<a id="frequently-ask-questions" class="anchor" href="#frequently-ask-questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Frequently Ask Questions</h2>
 
 <ul>
 <li>
@@ -135,31 +128,37 @@ The custom rules for Finstyle were derived by using a corpus of working producti
 <li>
 <strong>I disagree with {{insert rule here}}, can I change it?</strong>
 You are welcome to submit issues or pull requests to this project but keep in mind that as any style guides go, these work for the author and related projects. They weren't made arbitrarily :) If you like the implemementation (hack), feel free to fork/copy the idea and vendor your own custom rules.</li>
-</ul><h2>
-<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+</ul>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <ul>
 <li>Source hosted at <a href="https://github.com/fnichol/finstyle">GitHub</a>
 </li>
 <li>Report issues/questions/feature requests on <a href="https://github.com/fnichol/finstyle/issues">GitHub Issues</a>
 </li>
-</ul><p>Pull requests are very welcome! Make sure your patches are well tested.
+</ul>
+
+<p>Pull requests are very welcome! Make sure your patches are well tested.
 Ideally create a topic branch for every separate change you make. For
 example:</p>
 
 <ol>
-<li>Fork it ( <a href="https://github.com/%5Bmy-github-username%5D/finstyle/fork">https://github.com/[my-github-username]/finstyle/fork</a> )</li>
+<li>Fork it ( <a href="https://github.com/fnichol/finstyle/fork">https://github.com/fnichol/finstyle/fork</a> )</li>
 <li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
 <li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
 <li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
 <li>Create a new Pull Request</li>
-</ol><h2>
-<a name="authors" class="anchor" href="#authors"><span class="octicon octicon-link"></span></a>Authors</h2>
+</ol>
+
+<h2>
+<a id="authors" class="anchor" href="#authors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors</h2>
 
 <p>Created and maintained by <a href="https://github.com/fnichol">Fletcher Nichol</a> (<a href="mailto:fnichol@nichol.ca">fnichol@nichol.ca</a>)</p>
 
 <h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>MIT (see <a href="https://github.com/fnichol/finstyle/blob/master/LICENSE.txt">LICENSE.txt</a>)</p>
       </section>
