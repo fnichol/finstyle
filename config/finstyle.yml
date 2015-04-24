@@ -99,6 +99,9 @@ Style/HashSyntax:
 Style/EmptyLiteral:
   Enabled: false
 
+Style/FirstParameterIndentation:
+  EnforcedStyle: consistent
+
 # Claimed violations of this by Rubocop are, in general, complete nonsense and
 # worse can dramtically reduce the safe readability of code (it would lead you
 # to add a lot more `return if ...` blocks in the *middle* of method bodies)
