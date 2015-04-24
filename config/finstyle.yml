@@ -47,7 +47,7 @@ Style/AlignParameters:
 # * http://devblog.avdi.org/2011/07/26/the-procedurefunction-block-convention-in-ruby/
 # * http://talklikeaduck.denhaven2.com/2007/10/02/ruby-blocks-do-or-brace
 # * http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc
-Style/Blocks:
+Style/BlockDelimiters:
   Enabled: false
 
 BracesAroundHashParameters:
