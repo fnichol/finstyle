@@ -120,7 +120,7 @@ Style/ClassCheck:
 
 Style/ClassMethods:
   Description: 'Use self when defining module/class methods.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#def-self-singletons'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#def-self-class-methods'
   Enabled: true
 
 Style/ClassVars:
@@ -270,6 +270,7 @@ Style/FormatString:
 Style/GlobalVars:
   Description: 'Do not introduce global variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#instance-vars'
+  Reference: 'http://www.zenspider.com/Languages/Ruby/QuickRef.html'
   Enabled: true
 
 Style/GuardClause:
@@ -444,6 +445,16 @@ Style/OneLineConditional:
 Style/OpMethod:
   Description: 'When defining binary operators, name the argument other.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#other-arg'
+  Enabled: true
+
+Style/ParallelAssignment:
+  Description: >-
+                  Check for simple usages of parallel assignment.
+                  It will only warn when the number of variables
+                  matches on both sides of the assignment.
+                  This also provides performance benefits
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#parallel-assignment'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#parallel-assignment-vs-sequential-assignment-code'
   Enabled: true
 
 Style/ParenthesesAroundCondition:
@@ -644,6 +655,11 @@ Style/SpaceInsideRangeLiteral:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-space-inside-range-literals'
   Enabled: true
 
+Style/SpaceInsideStringInterpolation:
+  Description: 'Checks for padding/surrounding spaces inside string interpolation.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#string-interpolation'
+  Enabled: true
+
 Style/SpecialGlobalVars:
   Description: 'Avoid Perl-style global variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-cryptic-perlisms'
@@ -714,6 +730,12 @@ Style/UnneededPercentQ:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-q'
   Enabled: true
 
+Style/TrailingUnderscoreVariable:
+  Description: >-
+                 Checks for the usage of unneeded trailing underscores at the
+                 end of parallel variable assignment.
+  Enabled: true
+
 Style/VariableInterpolation:
   Description: >-
                  Don't interpolate global, instance and class variables
@@ -754,6 +776,7 @@ Metrics/AbcSize:
   Description: >-
                  A calculated magnitude based on number of assignments,
                  branches, and conditions.
+  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
   Enabled: true
 
 Metrics/BlockNesting:
@@ -763,6 +786,10 @@ Metrics/BlockNesting:
 
 Metrics/ClassLength:
   Description: 'Avoid classes longer than 100 lines of code.'
+  Enabled: true
+
+Metrics/ModuleLength:
+  Description: 'Avoid modules longer than 100 lines of code.'
   Enabled: true
 
 Metrics/CyclomaticComplexity:
@@ -840,6 +867,10 @@ Lint/DuplicateMethods:
   Description: 'Check for duplicate methods calls.'
   Enabled: true
 
+Lint/EachWithObjectArgument:
+  Description: 'Check for immutable argument given to each_with_object.'
+  Enabled: true
+
 Lint/ElseLayout:
   Description: 'Check for odd code arrangement in an else block.'
   Enabled: true
@@ -895,6 +926,11 @@ Lint/Loop:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#loop-with-break'
   Enabled: true
 
+Lint/NestedMethodDefinition:
+  Description: 'Do not use nested method definitions.'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-nested-methods'
+  Enabled: true
+
 Lint/NonLocalExitFromIterator:
   Description: 'Do not use return in iterator to cause non-local exit.'
   Enabled: true
@@ -938,6 +974,10 @@ Lint/UnderscorePrefixedVariableName:
   Description: 'Do not use prefix `_` for a variable that is used.'
   Enabled: true
 
+Lint/UnneededDisable:
+  Description: 'Checks for rubocop:disable comments that can be removed.'
+  Enabled: true
+
 Lint/UnusedBlockArgument:
   Description: 'Checks for unused block arguments.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscore-unused-vars'
@@ -979,10 +1019,18 @@ Lint/Void:
 
 ##################### Performance #############################
 
+Performance/Count:
+  Description: >-
+                  Use `count` instead of `select...size`, `reject...size`,
+                  `select...count`, `reject...count`, `select...length`,
+                  and `reject...length`.
+  Enabled: true
+
 Performance/Detect:
   Description: >-
                   Use `detect` instead of `select.first`, `find_all.first`,
                   `select.last`, and `find_all.last`.
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerabledetect-vs-enumerableselectfirst-code'
   Enabled: true
 
 Performance/FlatMap:
@@ -990,6 +1038,7 @@ Performance/FlatMap:
                   Use `Enumerable#flat_map`
                   instead of `Enumerable#map...Array#flatten(1)`
                   or `Enumberable#collect..Array#flatten(1)`
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablemaparrayflatten-vs-enumerableflat_map-code'
   Enabled: true
   EnabledForFlattenWithoutParams: false
   # If enabled, this cop will warn about usages of
@@ -999,18 +1048,21 @@ Performance/FlatMap:
 
 Performance/ReverseEach:
   Description: 'Use `reverse_each` instead of `reverse.each`.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablereverseeach-vs-enumerablereverse_each-code'
   Enabled: true
 
 Performance/Sample:
   Description: >-
                   Use `sample` instead of `shuffle.first`,
                   `shuffle.last`, and `shuffle[Fixnum]`.
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#arrayshufflefirst-vs-arraysample-code'
   Enabled: true
 
 Performance/Size:
   Description: >-
                   Use `size` instead of `count` for counting
                   the number of elements in `Array` and `Hash`.
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#arraycount-vs-arraysize-code'
   Enabled: true
 
 ##################### Rails ##################################
@@ -1061,6 +1113,8 @@ Rails/ScopeArgs:
 
 Rails/TimeZone:
   Description: 'Checks the correct usage of time zone aware methods.'
+  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#time'
+  Reference: 'http://danilenko.org/2012/7/6/rails_timezones'
   Enabled: true
 
 Rails/Validation:

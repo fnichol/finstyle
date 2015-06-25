@@ -7,13 +7,14 @@ inherit_from:
 
 # Common configuration.
 AllCops:
-  # Include gemspec and Rakefile
+  # Include common Ruby source files.
   Include:
     - '**/*.gemspec'
     - '**/*.podspec'
     - '**/*.jbuilder'
     - '**/*.rake'
     - '**/*.opal'
+    - '**/config.ru'
     - '**/Gemfile'
     - '**/Rakefile'
     - '**/Capfile'
@@ -735,6 +736,10 @@ Metrics/ClassLength:
   CountComments: false  # count full line comments?
   Max: 100
 
+Metrics/ModuleLength:
+  CountComments: false  # count full line comments?
+  Max: 100
+
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 6
@@ -776,6 +781,7 @@ Lint/EndAlignment:
   SupportedStyles:
     - keyword
     - variable
+  AutoCorrect: false
 
 Lint/DefEndAlignment:
   # The value `def` means that `end` should be aligned with the def keyword.
@@ -786,6 +792,7 @@ Lint/DefEndAlignment:
   SupportedStyles:
     - start_of_line
     - def
+  AutoCorrect: false
 
 ##################### Rails ##################################
 
