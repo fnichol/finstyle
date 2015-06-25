@@ -47,11 +47,16 @@ Style/AlignParameters:
 # * http://devblog.avdi.org/2011/07/26/the-procedurefunction-block-convention-in-ruby/
 # * http://talklikeaduck.denhaven2.com/2007/10/02/ruby-blocks-do-or-brace
 # * http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc
-Style/Blocks:
+Style/BlockDelimiters:
   Enabled: false
 
 BracesAroundHashParameters:
   EnforcedStyle: context_dependent
+
+# As of 0.30.1, too many false positives and no ability to configure
+# this cop
+Style/ClosingParenthesisIndentation:
+  Enabled: false
 
 # Words help us convey meaning and Ruby aliased methods help with this.
 Style/CollectionMethods:
@@ -93,6 +98,9 @@ Style/HashSyntax:
 
 Style/EmptyLiteral:
   Enabled: false
+
+Style/FirstParameterIndentation:
+  EnforcedStyle: consistent
 
 # Claimed violations of this by Rubocop are, in general, complete nonsense and
 # worse can dramtically reduce the safe readability of code (it would lead you
