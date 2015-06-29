@@ -35,6 +35,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 20
 
+# ABC complexity is a far better code smell signal than raw class length.
+Metrics/ModuleLength:
+  Max: 300
+
 #
 ### Style Cops
 #
